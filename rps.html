@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="rps.css">
     <title>Rock, Paper, Scissors</title>
-    <script src="rockpaperscissors.js"></script>
 </head>
 <body>
-    
+    <div class="body-container">
+        <h1><u>Rock, Paper, Scissors</u></h1>
+        <p>The computer has chosen...</p>
+        <p>Make your selection:</p>
+        <div class = "button-container">
+            <button id="Rock" class="button">🪨</button>
+            <button id="Paper" class="button">📜</button>
+            <button id="Scissors" class="button">✂</button>
+        </div>
+        <h2><u>Results:</u></h2>
+        <div class="results">
+            <div class="placeholder">?</div>
+            <h2 id="vs">vs.</h2>
+            <div class="placeholder">?</div>
+        </div>
+    </div>
 </body>
+<!--JavaScript source at the end of the HTML file so that everything else loads first-->
+<script src="rps.js"></script>
 </html>
