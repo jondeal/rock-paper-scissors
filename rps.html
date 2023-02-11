@@ -10,18 +10,32 @@
 <body>
     <div class="body-container">
         <h1><u>Rock, Paper, Scissors</u></h1>
+        <p>Best of 5 rounds!</p>
         <p>The computer has chosen...</p>
-        <p>Make your selection:</p>
+        <p><em>Make your selection:</em></p>
         <div class = "button-container">
-            <button id="Rock" class="button">🪨</button>
-            <button id="Paper" class="button">📜</button>
-            <button id="Scissors" class="button">✂</button>
+            <button id="Rock" class="hover">🪨</button>
+            <button id="Paper" class="hover">📜</button>
+            <button id="Scissors" class="hover">✂</button>
         </div>
-        <h2><u>Results:</u></h2>
+        <h2><u>Results</u></h2>
+        <div>
+            <span id="1" class="dot"></span>
+            <span id="2" class="dot"></span>
+            <span id="3" class="dot"></span>
+            <span id="4" class="dot"></span>
+            <span id="5" class="dot"></span>
+        </div>
         <div class="results">
-            <div class="placeholder">?</div>
-            <h2 id="vs">vs.</h2>
-            <div class="placeholder">?</div>
+            <div class="icons">
+                <div class="results-icon">?</div>
+                <div><strong>YOU</strong></div>
+            </div>
+            <h2>vs.</h2>
+            <div class="icons">
+                <div class="results-icon">?</div>
+                <div><strong>CPU</strong></div>
+            </div>
         </div>
     </div>
 </body>

@@ -1,3 +1,11 @@
+let roundCount = 0;
+const buttons = document.getElementsByTagName("button");
+const results = document.querySelector(".results");
+const bodyContainer = document.querySelector(".body-container");
+const resultsMessage = document.createElement("p");
+const resultsIcons = document.getElementsByClassName("results-icon");
+
+
 function getComputerChoice() {
     function getRandomInteger(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -17,13 +25,46 @@ function getComputerChoice() {
     return computerChoice;
 }
 
+function resetRound() {
+    for (const button of buttons) {
+        if (button.disabled === true) {
+            button.disabled = false;
+            button.classList.add("hover");
+        } else {
+            button.style.border = "";
+        }
+    }
+
+    bodyContainer.removeChild(resultsMessage);
+    for (const result of resultsIcons) {
+        result.innerText = "?";
+    }
+
+
+    // winner = "";
+    // playerChoice = "";
+    // playerChoiceIcon = "";
+    // playerResultsIcon = "";
+
+    // computerChoice = "";
+    // computerChoiceIcon = "";
+    // computerResultsIcon = "";
+
+}
 
 function playRound() {
+    this.style.border = "4px solid gold";
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i].id !== this.id) {
+            buttons[i].disabled = true;
+            // removes hover effect on unselected buttons by removing their class
+            buttons[i].removeAttribute("class");
+        }
+    }
+
     const playerChoice = this.id;
     const computerChoice = getComputerChoice();
 
-    console.log(playerChoice, computerChoice);
-    
     let playerChoiceIcon;
     let computerChoiceIcon;
 
@@ -52,60 +93,55 @@ function playRound() {
     playerResultsIcon.style["font-size"] = "48px";
     computerResultsIcon.style["font-size"] = "48px";
 
-    const results = document.querySelector(".results");
-    const vs = document.getElementById("vs");
-    const placeholder = document.getElementsByClassName("placeholder");
+    resultsIcons[0].innerText = playerResultsIcon.innerText;
+    resultsIcons[1].innerText = computerResultsIcon.innerText;
 
-    results.replaceChild(playerResultsIcon, placeholder[0]);
-    results.replaceChild(computerResultsIcon, placeholder[0]);
+    const winMessage = "You win :)";
+    const loseMessage = "You lose :(";
+    const tieMessage = "It's a tie :|";
 
-    // results.insertBefore(playerResultsIcon, vs);
-    // results.appendChild(computerResultsIcon);
-
-    const winMessage = `You win! ${playerChoice} beats ${computerChoice}.`;
-    const loseMessage = `Womp womp. ${computerChoice} beats ${playerChoice}`;
 
     let winner;
 
     if (computerChoice === playerChoice) {
-        alert(`It's a tie. You both chose ${computerChoice}.`);
+        resultsMessage.innerText = tieMessage;
         winner = "tie";
     } else if (computerChoice === "Rock" && playerChoice === "Paper") {
-        alert(winMessage);
+        resultsMessage.innerText = winMessage;
         winner = "player";
     } else if (computerChoice === "Paper" && playerChoice === "Scissors") {
-        alert(winMessage);
+        resultsMessage.innerText = winMessage;
         winner = "player";
     } else if (computerChoice === "Scissors" && playerChoice === "Rock") {
-        alert(winMessage);
+        resultsMessage.innerText = winMessage;
         winner = "player";
     } else {
-        alert(loseMessage);
+        resultsMessage.innerText = loseMessage;
         winner = "computer";
     }
-    
-    return winner;
-    
-}
 
-function game() {
-    let playerWinCount = 0;
-    let computerWinCount = 0;
-    let tieCount = 0;
-    
-    let winner = playRound(computerChoice, playerChoice);
+    bodyContainer.appendChild(resultsMessage);
+
+    const dots = document.getElementsByClassName("dot");
+
     if (winner === "player") {
-        ++playerWinCount;
-    } else if (winner === "computer") {
-        ++computerWinCount;
+        dots[roundCount].style["background-color"] = "lightgreen";
+        } else if (winner === "computer") {
+            dots[roundCount].style["background-color"] = "red";
+        } else {
+            dots[roundCount].style["background-color"] = "lightgray";
+        }
+    
+    if (roundCount < 4) {
+        setTimeout(resetRound, 2000);
+        ++roundCount;
+        console.log(roundCount);
     } else {
-        ++tieCount;
-    }
+        console.log("game should end here");
+    };
 
-    alert(`The current score is: Player ${playerWinCount}, Computer ${computerWinCount}, Tie ${tieCount}`);
 }
 
-const element = document.getElementsByClassName("button");
-for (i = 0; i < element.length; i++) {
-    element[i].addEventListener("click", playRound);
-}
+for (i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", playRound)
+};
