@@ -1,10 +1,14 @@
 let roundCount = 0;
+let playerWinCount = 0;
+let computerWinCount = 0;
+
 const buttons = document.getElementsByTagName("button");
 const results = document.querySelector(".results");
 const bodyContainer = document.querySelector(".body-container");
-const resultsMessage = document.createElement("p");
+const resultsMessage = document.getElementById("results-message");
 const resultsIcons = document.getElementsByClassName("results-icon");
-
+const selectionMessage = document.getElementById("selection-message");
+const gameEndMessage = document.getElementById("game-end-message");
 
 function getComputerChoice() {
     function getRandomInteger(min, max) {
@@ -26,6 +30,9 @@ function getComputerChoice() {
 }
 
 function resetRound() {
+    selectionMessage.style.visibility = "visible";
+    resultsMessage.innerText = "";
+
     for (const button of buttons) {
         if (button.disabled === true) {
             button.disabled = false;
@@ -35,25 +42,16 @@ function resetRound() {
         }
     }
 
-    bodyContainer.removeChild(resultsMessage);
     for (const result of resultsIcons) {
         result.innerText = "?";
     }
-
-
-    // winner = "";
-    // playerChoice = "";
-    // playerChoiceIcon = "";
-    // playerResultsIcon = "";
-
-    // computerChoice = "";
-    // computerChoiceIcon = "";
-    // computerResultsIcon = "";
-
 }
 
 function playRound() {
+    selectionMessage.style.visibility = "hidden";
+
     this.style.border = "4px solid gold";
+
     for (i = 0; i < buttons.length; i++) {
         if (buttons[i].id !== this.id) {
             buttons[i].disabled = true;
@@ -84,17 +82,8 @@ function playRound() {
         computerChoiceIcon = "✂";
     }
 
-    const playerResultsIcon = document.createElement("p");
-    const computerResultsIcon = document.createElement("p");
-
-    playerResultsIcon.innerText = playerChoiceIcon;
-    computerResultsIcon.innerText = computerChoiceIcon;
-
-    playerResultsIcon.style["font-size"] = "48px";
-    computerResultsIcon.style["font-size"] = "48px";
-
-    resultsIcons[0].innerText = playerResultsIcon.innerText;
-    resultsIcons[1].innerText = computerResultsIcon.innerText;
+    resultsIcons[0].innerText = playerChoiceIcon;
+    resultsIcons[1].innerText = computerChoiceIcon;
 
     const winMessage = "You win :)";
     const loseMessage = "You lose :(";
@@ -120,14 +109,15 @@ function playRound() {
         winner = "computer";
     }
 
-    bodyContainer.appendChild(resultsMessage);
-
     const dots = document.getElementsByClassName("dot");
+    
 
     if (winner === "player") {
         dots[roundCount].style["background-color"] = "lightgreen";
+        playerWinCount++;
         } else if (winner === "computer") {
             dots[roundCount].style["background-color"] = "red";
+            computerWinCount++;
         } else {
             dots[roundCount].style["background-color"] = "lightgray";
         }
@@ -135,9 +125,14 @@ function playRound() {
     if (roundCount < 4) {
         setTimeout(resetRound, 2000);
         ++roundCount;
-        console.log(roundCount);
     } else {
-        console.log("game should end here");
+        if (playerWinCount > computerWinCount) {
+            gameEndMessage.innerText = `You won ${playerWinCount} to ${computerWinCount}!`;
+        } else if (computerWinCount > playerWinCount) {
+            gameEndMessage.innerText = `You lost ${computerWinCount} to ${playerWinCount}.`;
+        } else {
+            gameEndMessage.innerText = `You tied ${playerWinCount} to ${computerWinCount}.`;
+        }
     };
 
 }

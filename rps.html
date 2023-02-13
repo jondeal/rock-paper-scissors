@@ -12,7 +12,7 @@
         <h1><u>Rock, Paper, Scissors</u></h1>
         <p>Best of 5 rounds!</p>
         <p>The computer has chosen...</p>
-        <p><em>Make your selection:</em></p>
+        <p id="selection-message"><em>Make your selection:</em></p>
         <div class = "button-container">
             <button id="Rock" class="hover">🪨</button>
             <button id="Paper" class="hover">📜</button>
@@ -31,12 +31,14 @@
                 <div class="results-icon">?</div>
                 <div><strong>YOU</strong></div>
             </div>
-            <h2>vs.</h2>
+            <h2 id="vs">vs.</h2>
             <div class="icons">
                 <div class="results-icon">?</div>
                 <div><strong>CPU</strong></div>
             </div>
         </div>
+        <div id="results-message"></div>
+        <div id="game-end-message"></div>
     </div>
 </body>
 <!--JavaScript source at the end of the HTML file so that everything else loads first-->

@@ -60,8 +60,11 @@ button {
 .results {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 8px;
+    width: 335px;
+}
+
+#vs {
+    margin: 32px;
 }
 
 .icons {
@@ -69,13 +72,16 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 8px;
-
 }
+
 .results-icon {
     font-size: 48px;
 }
-.results-message {
+
+#results-message {
     font-size: 24px;
-    margin:0;
+}
+
+#game-end-message {
+    font-size: 24px;
 }
